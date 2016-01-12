@@ -28,7 +28,7 @@ const httpGet = (url) =>
 const maybeHttpGet = (url) =>
   url.cata({
     Just: httpGet,
-    Nothing: () => Task.of({ items: [] })
+    Nothing: () => Task.empty()
   });
 
 // toVideo :: JSON -> Video

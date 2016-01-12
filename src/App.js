@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import { searchVideos } from './youtube/model';
-import Embed from './youtube/Embed';
+import SearchResults from './SearchResults';
 import styles from './styles';
 
 class App extends Component {
@@ -35,15 +35,7 @@ class App extends Component {
             placeholder="Search for videos"
             autoFocus={true}
             onChange={this.searchVideos.bind(this)}/>
-        <div style={styles.results}>
-          {
-            this.state.videos.map(v => (
-              <div key={v.id} style={styles.video}>
-                <Embed video={v}/>
-              </div>
-            ))
-          }
-        </div>
+        <SearchResults videos={this.state.videos}/>
       </div>
     );
   }

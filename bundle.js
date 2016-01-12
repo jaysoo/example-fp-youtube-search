@@ -32758,6 +32758,44 @@ module.exports = require('./lib/React');
 },{"./lib/React":221}],354:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Embed = require('./youtube/Embed');
+
+var _Embed2 = _interopRequireDefault(_Embed);
+
+var _styles = require('./styles');
+
+var _styles2 = _interopRequireDefault(_styles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchResults = function SearchResults(_ref) {
+  var videos = _ref.videos;
+  return _react2.default.createElement(
+    'div',
+    { style: _styles2.default.results },
+    videos.map(function (v) {
+      return _react2.default.createElement(
+        'div',
+        { key: v.id, style: _styles2.default.video },
+        _react2.default.createElement(_Embed2.default, { video: v })
+      );
+    })
+  );
+};
+
+exports.default = SearchResults;
+
+},{"./styles":358,"./youtube/Embed":359,"react":353}],355:[function(require,module,exports){
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
@@ -32770,9 +32808,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _model = require('./youtube/model');
 
-var _Embed = require('./youtube/Embed');
+var _SearchResults = require('./SearchResults');
 
-var _Embed2 = _interopRequireDefault(_Embed);
+var _SearchResults2 = _interopRequireDefault(_SearchResults);
 
 var _styles = require('./styles');
 
@@ -32833,17 +32871,7 @@ var App = function (_Component) {
           placeholder: 'Search for videos',
           autoFocus: true,
           onChange: this.searchVideos.bind(this) }),
-        _react2.default.createElement(
-          'div',
-          { style: _styles2.default.results },
-          this.state.videos.map(function (v) {
-            return _react2.default.createElement(
-              'div',
-              { key: v.id, style: _styles2.default.video },
-              _react2.default.createElement(_Embed2.default, { video: v })
-            );
-          })
-        )
+        _react2.default.createElement(_SearchResults2.default, { videos: this.state.videos })
       );
     }
   }]);
@@ -32853,7 +32881,7 @@ var App = function (_Component) {
 
 exports.default = App;
 
-},{"./styles":357,"./youtube/Embed":358,"./youtube/model":359,"react":353}],355:[function(require,module,exports){
+},{"./SearchResults":354,"./styles":358,"./youtube/model":360,"react":353}],356:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -32861,7 +32889,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var API_KEY = exports.API_KEY = 'AIzaSyBn6VAt-hqQEowrEouhsL_k7RqJ2zSsoNI';
 
-},{}],356:[function(require,module,exports){
+},{}],357:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -32886,7 +32914,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('root'));
 
-},{"./app":354,"./config":355,"babel-polyfill":1,"react":353,"react-dom":197}],357:[function(require,module,exports){
+},{"./app":355,"./config":356,"babel-polyfill":1,"react":353,"react-dom":197}],358:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -32920,7 +32948,7 @@ exports.default = {
   }
 };
 
-},{}],358:[function(require,module,exports){
+},{}],359:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -32948,7 +32976,7 @@ var Embed = function Embed(_ref) {
 
 exports.default = Embed;
 
-},{"../styles":357,"react":353}],359:[function(require,module,exports){
+},{"../styles":358,"react":353}],360:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -32997,7 +33025,7 @@ var maybeHttpGet = function maybeHttpGet(url) {
   return url.cata({
     Just: httpGet,
     Nothing: function Nothing() {
-      return _data4.default.of({ items: [] });
+      return _data4.default.empty();
     }
   });
 };
@@ -33018,4 +33046,4 @@ var toVideos = (0, _ramda.compose)((0, _ramda.map)(toVideo), (0, _ramda.prop)('i
 // searchVideos :: String -> Task Error [Video]
 var searchVideos = exports.searchVideos = (0, _ramda.compose)((0, _ramda.map)(toVideos), maybeHttpGet, makeUrl);
 
-},{"daggy":191,"data.maybe":192,"data.task":194,"ramda":196}]},{},[356]);
+},{"daggy":191,"data.maybe":192,"data.task":194,"ramda":196}]},{},[357]);
