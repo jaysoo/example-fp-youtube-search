@@ -1,8 +1,7 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
+import Either from 'data.either';
 
-import { searchVideos } from './youtube/model';
+import { Empty, searchVideos } from './youtube/model';
 import VideoSearch from './youtube/VideoSearch';
 import styles from './styles';
 
@@ -10,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: []
+      results: Empty
     };
   }
 
@@ -18,8 +17,8 @@ class App extends Component {
     searchVideos(term).fork((e) => this.showError(e), this.updateResults.bind(this));
   }
 
-  showError(s) {
-    console.error(s);
+  showError(err) {
+    console.error(err);
   }
 
   updateResults(results) {
