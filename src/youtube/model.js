@@ -46,5 +46,5 @@ const toVideo = json => {
 // toVideos :: JSON -> [Video]
 const toVideos = compose(map(toVideo), prop('items'));
 
-// searchVideos :: String -> Task Error (Either String [Video])
+// searchVideos :: String -> Task Error (Either Empty [Video])
 export const searchVideos = compose(lift(lift(toVideos)), maybeHttpGet(Empty), makeUrl);
