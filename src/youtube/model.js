@@ -11,10 +11,15 @@ export const Empty = Either.Left('Search for YouTube videos');
 // Alias for Url
 // type Url = String;
 
-// makeUrl :: String -> Maybe Url
+// makeUrl :: String -> Url
+
 const makeUrl = (term) =>
+  `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&type=video&q=${term}&key=xxxx`; // xxxx is the Google API key
+
+// maybeMakeUrl :: String -> Maybe Url
+const maybeMakeUrl = (term) =>
   term && term.length > 0
-    ? Maybe.Just(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=24&type=video&q=${term}&key=AIzaSyBn6VAt-hqQEowrEouhsL_k7RqJ2zSsoNI`)
+    ? Maybe.Just(makeUrl(term))
     : Maybe.Nothing()
   ;
 
@@ -47,4 +52,4 @@ const toVideo = json => {
 const toVideos = compose(map(toVideo), prop('items'));
 
 // searchVideos :: String -> Task Error (Either Empty [Video])
-export const searchVideos = compose(lift(lift(toVideos)), maybeHttpGet(Empty), makeUrl);
+export const searchVideos = compose(lift(lift(toVideos)), maybeHttpGet(Empty), maybeMakeUrl);

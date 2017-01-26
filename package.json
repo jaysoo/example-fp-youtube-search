@@ -5,7 +5,7 @@
   "scripts": {
     "build": "./node_modules/.bin/browserify src/index.js -t babelify --outfile bundle.js",
     "watch": "./node_modules/.bin/nodemon --exec npm run build",
-    "start": "./node_modules/.bin/http-server"
+    "start": "npm run build && ./node_modules/.bin/http-server"
   },
   "author": "Jack Hsu <jack.hsu@gmail.com> (http://jaysoo.ca/)",
   "license": "ISC",

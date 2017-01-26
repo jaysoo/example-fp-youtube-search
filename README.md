@@ -14,6 +14,8 @@ Start server:
 npm start
 ```
 
+Now you go to http://localhost:8080/ to use the app.
+
 ## Building
 
 ```
